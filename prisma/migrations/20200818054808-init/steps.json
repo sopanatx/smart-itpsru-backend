@@ -139,6 +139,13 @@
     {
       "tag": "CreateField",
       "model": "Account",
+      "field": "studentPasswordSalt",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Account",
       "field": "isActivate",
       "type": "Boolean",
       "arity": "Required"
@@ -174,6 +181,31 @@
       "field": "userLevel",
       "type": "userLevel",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Account",
+          "field": "userLevel"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Account",
+          "field": "userLevel"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "STUDENT"
     },
     {
       "tag": "CreateField",

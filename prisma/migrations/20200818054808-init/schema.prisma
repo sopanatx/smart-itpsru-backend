@@ -8,20 +8,21 @@ datasource db {
 }
 
 model Account {
-  id               String            @id @default(uuid())
-  studentId        String?           @unique
-  studentFirstName String
-  studentLastName  String
-  studentEmail     String            @unique
-  studentPassword  String?
-  isActivate       Boolean           @default(false)
-  userLevel        userLevel
-  lastLogin        DateTime?
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @default(now())
-  AccountInfo      AccountInfo[]
-  StudentActivity  StudentActivity[]
-  StudentGrade     StudentGrade[]
+  id                  String            @id @default(uuid())
+  studentId           String?           @unique
+  studentFirstName    String
+  studentLastName     String
+  studentEmail        String            @unique
+  studentPassword     String?
+  studentPasswordSalt String?
+  isActivate          Boolean           @default(false)
+  userLevel           userLevel         @default(STUDENT)
+  lastLogin           DateTime?
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @default(now())
+  AccountInfo         AccountInfo[]
+  StudentActivity     StudentActivity[]
+  StudentGrade        StudentGrade[]
 }
 
 model AccountInfo {

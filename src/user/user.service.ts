@@ -29,7 +29,7 @@ export class UserService {
     return { getAccountInfo };
   }
   async searchStudent(where: AccountWhereUniqueInput): Promise<any> {
-    console.log("searchStudent:",where);
+    console.log('searchStudent:', where);
     const search = await this.prisma.account.findOne({
       where,
       select: {
@@ -41,10 +41,8 @@ export class UserService {
         AccountInfo: {
           select: {
             accountId: true,
-
             nickname: true,
             admissionYear: true,
-
             educateGroup: true,
             profileImageUrl: true,
             privacyPermission: true,

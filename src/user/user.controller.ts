@@ -15,8 +15,8 @@ export class UserController {
   //@UseGuards(JwtAuthGuard)
 
   @Get('find/:id')
-  async findUser(@Param('id') accountId: string): Promise<AccountInfo> {
-    const getUser = await this.userService.findOne({ accountId });
+  async findUser(@Param('id') id: string): Promise<AccountInfo> {
+    const getUser = await this.userService.findOne({ id });
     console.log(getUser);
     return getUser;
   }

@@ -9,21 +9,39 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
+
+  //ส่วนนี้จะแสดงข้อมูลที่ละเอียดกว่าค้นหาโดย รหัสนักศึกษา ดังนั้น ส่วนนี้จึงใช้เฉพาะ Authorized user เท่านั้น
   async findOne(where: AccountInfoWhereUniqueInput): Promise<any> {
-    const getAccountInfo = await this.prisma.accountInfo.findOne({
+    const getAccountInfo = await this.prisma.account.findOne({
       where,
-      include: {
-        Account: {
+      select: {
+        studentId: true,
+        studentEmail: true,
+        studentFirstName: true,
+        studentLastName: true,
+        userLevel: true,
+        lastLogin: true,
+        AccountInfo: {
           select: {
-            studentId: true,
-            studentEmail: true,
-            studentFirstName: true,
-            studentLastName: true,
-            userLevel: true,
+            id: true,
+            accountId: true,
+            nickname: true,
+            graduateSchool: true,
+            admissionYear: true,
+            educateGroup: true,
+            profileImageUrl: true,
+            canContactAddress: true,
+            currentAddress: true,
+            workAddress: true,
+            phoneNumber: true,
+            facebookAccount: true,
+            lineID: true,
+            privacyPermission: true,
           },
         },
       },
     });
+    console.log('[DBG] FIND_USER_BY_ID: ', getAccountInfo);
     if (!getAccountInfo) throw new NotFoundException();
 
     return { getAccountInfo };

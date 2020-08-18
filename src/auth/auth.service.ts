@@ -21,15 +21,22 @@ export class AuthService {
 
   async validatePassword(localAuthDto: LocalAuthDto): Promise<any> {
     const { studentId, studentPassword } = localAuthDto;
-    const user = await this.prisma.account.findOne({
-      where: { studentId },
-    });
+    const user = await this.prisma.account
+      .findOne({
+        where: { studentId },
+      })
+      .then();
     if (!user) throw new NotFoundException('User not found!');
 
     // นำ Password ที่ได้จาก User ไป hash กับ salt บน db ถ้าตรงกันก็ return ค่าออกไป
     // หากรหัสผ่านไม่ตรงกันให้ thorw error ออกไป
     const hash = await bcrypt.hash(studentPassword, user.studentPasswordSalt);
     if (hash != user.studentPassword) throw new UnauthorizedException();
+    await this.prisma.account.update({
+      where: { studentId: studentId },
+      data: { lastLogin: new Date(), updatedAt: new Date() },
+    });
+    console.log('[DBG] DATE:', new Date());
     return user;
   }
 

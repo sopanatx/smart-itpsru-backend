@@ -15,12 +15,14 @@ export class UserService {
     const getAccountInfo = await this.prisma.account.findOne({
       where,
       select: {
+        id: true,
         studentId: true,
         studentEmail: true,
         studentFirstName: true,
         studentLastName: true,
         userLevel: true,
         lastLogin: true,
+        isActivate: true,
         AccountInfo: {
           select: {
             id: true,
@@ -41,7 +43,6 @@ export class UserService {
         },
       },
     });
-    console.log('[DBG] FIND_USER_BY_ID: ', getAccountInfo);
     if (!getAccountInfo) throw new NotFoundException();
 
     return { getAccountInfo };

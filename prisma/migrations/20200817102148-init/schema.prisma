@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+model Account {
+  id               String            @id @default(uuid())
+  studentId        String?           @unique
+  studentFirstName String
+  studentLastName  String
+  studentEmail     String            @unique
+  studentPassword  String?
+  isActivate       Boolean           @default(false)
+  userLevel        userLevel
+  lastLogin        DateTime?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @default(now())
+  AccountInfo      AccountInfo[]
+  StudentActivity  StudentActivity[]
+  StudentGrade     StudentGrade[]
+}
+
+model AccountInfo {
+  id                String   @id @default(cuid())
+  accountId         String   @unique
+  nickname          String?
+  educateGroup      Int
+  graduateSchool    String?
+  admissionYear     Int?
+  profileImageUrl   String?
+  canContactAddress String?
+  currentAddress    String?
+  workAddress       String?
+  phoneNumber       String?
+  facebookAccount   String?
+  lineID            String?
+  privacyPermission Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+  Account           Account  @relation(fields: [accountId], references: [id])
+}
+
+model StudentActivity {
+  id                  String   @id @default(cuid())
+  accountId           String?  @unique
+  studentId           String?
+  activityAllCount    Int
+  activityJoinedCount Int
+  createdAt           DateTime @default(now())
+  Account             Account? @relation(fields: [accountId], references: [id])
+}
+
+model StudentGrade {
+  id                    String   @id @default(cuid())
+  StudentId             String
+  totalCredit           Float?
+  totalAverageGrade     Float?
+  totalMainSubjectGrade Float?
+  createdAt             DateTime @default(now())
+  accountId             String?  @unique
+  Account               Account? @relation(fields: [accountId], references: [id])
+}
+
+enum userLevel {
+  ADMIN
+  STUDENT
+  TEACHER
+}

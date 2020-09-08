@@ -1,4 +1,11 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ForbiddenException,
+  UnauthorizedException,
+  HttpException,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { PrismaClient, AccountInfoWhereUniqueInput } from '@prisma/client';
 // or const { PrismaClient } = require('@prisma/client')
@@ -13,8 +20,8 @@ export class AppController {
   ) {}
 
   @Get()
-  getHello(): string {
+  getHello(): any {
     const prisma = new PrismaClient();
-    return this.appService.getHello();
+    return ForbiddenException();
   }
 }

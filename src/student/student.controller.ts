@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Param } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { GetUser } from 'src/decorator/getuser.decorator';
 import { JwtAuthGuard } from 'src/auth/strategy/jwt-auth.guard';
@@ -13,10 +13,13 @@ export class StudentController {
     return this.studentService.getActivity(username);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('/grade')
-  async getStudentGrade(@GetUser() User): Promise<any> {
-    const { username } = User;
-    return this.studentService.getGrade(username);
+  //@UseGuards(JwtAuthGuard)
+  @Get('/grade/:id')
+  async getStudentGrade(
+    @GetUser() User,
+    @Param('id') StudentId: string,
+  ): Promise<any> {
+    //const { username } = User;
+    return this.studentService.getGrade(StudentId);
   }
 }

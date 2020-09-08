@@ -22,6 +22,6 @@ export class AppController {
   @Get()
   getHello(): any {
     const prisma = new PrismaClient();
-    return ForbiddenException();
+    throw new ForbiddenException();
   }
 }

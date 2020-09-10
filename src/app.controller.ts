@@ -24,4 +24,18 @@ export class AppController {
     const prisma = new PrismaClient();
     throw new ForbiddenException();
   }
+
+  @Get('/appVerion')
+  getAppVersion(): any {
+    return {
+      status: 'OK',
+      appInfo: {
+        version: '1.0.9 (Dev)',
+        versionCode:9,
+        LastUpdated: `${Date.now()}`,
+        isInMaintenance: false,
+        isTestServer: true,
+      },
+    };
+  }
 }

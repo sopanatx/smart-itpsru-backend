@@ -25,7 +25,7 @@ export class AppController {
     throw new ForbiddenException();
   }
 
-  @Get('/appVerion')
+  @Get('/appVersion')
   getAppVersion(): any {
     return {
       status: 'OK',

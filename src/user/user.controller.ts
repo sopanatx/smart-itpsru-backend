@@ -23,10 +23,7 @@ export class UserController {
   ): Promise<AccountInfo> {
     console.log('[DBG] JWT_EXT:', user);
 
-    if (user.aud != id)
-      throw new ForbiddenException(
-        `คุณ: "${user.name}" ไม่ได้รับอนุญาตให้เข้าถึงเนื้่อหานี้`,
-      );
+    
 
     return await this.userService.findOne({ id });
   }

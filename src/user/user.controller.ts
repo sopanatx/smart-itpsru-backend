@@ -15,7 +15,7 @@ import { GetUser } from 'src/decorator/getuser.decorator';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('find/:id')
   async findUser(
     @Param('id') id: string,

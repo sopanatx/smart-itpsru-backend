@@ -8,16 +8,16 @@ export class StudentController {
   constructor(private readonly studentService: StudentService) {}
   @UseGuards(JwtAuthGuard)
   @Get('/activity')
-  async getStudentActivity(@GetUser() User): Promise<any> {
-    const { username } = User;
+  async getStudentActivity(@GetUser() user): Promise<any> {
+    const { username } = user;
     return this.studentService.getActivity(username);
   }
 
   //@UseGuards(JwtAuthGuard)
   @Get('/grade/:id')
   async getStudentGrade(
-    @GetUser() User,
-    @Param('id') StudentId: string,
+    @GetUser() user,
+    @Param('id') studentId: string,
   ): Promise<any> {
     //const { username } = User;
     return this.studentService.getGrade(StudentId);

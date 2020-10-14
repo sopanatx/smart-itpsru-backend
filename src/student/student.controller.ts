@@ -23,8 +23,8 @@ export class StudentController {
     return this.studentService.getGrade(StudentId);
   }
 
-  @Get('/activity')
+  @Get('/calendar')
   async getActivityCalendar(): Promise<any> {
-    return 'Hi';
+    return await this.studentService.getCalendar();
   }
 }

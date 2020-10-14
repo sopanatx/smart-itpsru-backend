@@ -4,11 +4,11 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model Account {
-   id String @id @default(uuid())
+  id                  String           @id
   studentId           String?          @unique
   studentFirstName    String
   studentLastName     String
@@ -26,7 +26,7 @@ model Account {
 }
 
 model AccountInfo {
-  id String @id @default(cuid())
+  id                String   @id
   accountId         String   @unique
   nickname          String?
   educateGroup      Int
@@ -46,7 +46,7 @@ model AccountInfo {
 }
 
 model StudentActivity {
-  id String @id @default(cuid())
+  id                  String   @id
   accountId           String?  @unique
   studentId           String?
   activityAllCount    Int
@@ -67,7 +67,7 @@ model StudentGrade {
 }
 
 model activityCalendar {
-  id String @id @default(uuid())
+  id    String @id
   activityName String?
   activityDetail String?
   activityStartDate DateTime @default(now())

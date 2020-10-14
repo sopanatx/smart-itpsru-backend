@@ -35,3 +35,7 @@ lerna-debug.log*
 /prisma/.env
 /.vscode
 /.env
+
+.vercel
+/src/dist
+/src/student/dist

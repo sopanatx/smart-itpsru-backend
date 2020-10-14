@@ -15,16 +15,13 @@ import { GetUser } from 'src/decorator/getuser.decorator';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  // @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get('find/:id')
   async findUser(
     @Param('id') id: string,
     @GetUser() user,
   ): Promise<AccountInfo> {
     console.log('[DBG] JWT_EXT:', user);
-
-    
-
     return await this.userService.findOne({ id });
   }
   //@UseGuards(JwtAuthGuard)

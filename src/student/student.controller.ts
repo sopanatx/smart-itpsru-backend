@@ -22,4 +22,9 @@ export class StudentController {
     //const { username } = User;
     return this.studentService.getGrade(StudentId);
   }
+
+  @Get('/activity')
+  async getActivityCalendar(): Promise<any> {
+    return 'Hi';
+  }
 }

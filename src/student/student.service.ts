@@ -14,6 +14,12 @@ export class StudentService {
     return studentGrade(studentId);
   }
   async getCalendar(): Promise<any> {
-    return await this.prisma.activityCalendar.findMany();
+    return await this.prisma.activityCalendar.findMany({
+      orderBy: [
+        {
+          activityStartDate: 'asc',
+        },
+      ],
+    });
   }
 }

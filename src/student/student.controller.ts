@@ -1,4 +1,10 @@
-import { Controller, Get, UseGuards, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Param,
+  MethodNotAllowedException,
+} from '@nestjs/common';
 import { StudentService } from './student.service';
 import { GetUser } from 'src/decorator/getuser.decorator';
 import { JwtAuthGuard } from 'src/auth/strategy/jwt-auth.guard';
@@ -26,5 +32,9 @@ export class StudentController {
   @Get('/calendar')
   async getActivityCalendar(): Promise<any> {
     return await this.studentService.getCalendar();
+  }
+  @Get('/device_logger')
+  async loggerDeviceinfo(): Promise<any> {
+    throw new MethodNotAllowedException();
   }
 }

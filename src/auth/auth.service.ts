@@ -11,6 +11,7 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { LocalAuthRegisterDto } from './dto/local-auth-register.dto';
 import { JwtService } from '@nestjs/jwt';
+import { checkStudentMajor } from '../utils/misc';
 @Injectable()
 export class AuthService {
   constructor(
@@ -66,6 +67,7 @@ export class AuthService {
       studentEmail,
       studentPassword,
     } = localAuthRegister;
+    await checkStudentMajor(studentId);
     const user = await this.prisma.account.findOne({
       where: { studentId },
     });

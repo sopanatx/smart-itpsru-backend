@@ -1,33 +1,23 @@
-org: sopanatx
-app: itpsruplus-backend
-service: itpsru-backend
+service:
+  name: itpsruplus-backend
+
+plugins:
+  - serverless-offline
 
 provider:
   name: aws
   runtime: nodejs12.x
-  region: ap-southeast-1
   stage: dev
-plugins:
-  - serverless-offline
-
-package:
-  exclude:
-    - .git/**
-    - src/**
-    - test/**
-    - e2e/**
-    - nodemon.json
-    - README.md
+  environment:
 
 functions:
-  index:
-    handler: dist/index.handler
+  main:
+    handler: dist/src/serverless.handler
     events:
       - http:
-          cors: true
-          path: '/'
           method: any
-      - http:
-          cors: true
-          path: '{proxy+}'
-          method: any
+          path:
+package:
+  exclude:
+    - node_modules/**
+    - venv/**

@@ -7,17 +7,18 @@ async function checkStudentMajor(studentId): Promise<void> {
 
   if (studentYear > 64 || studentYear < 60) {
     throw new BadRequestException({
-      errorCode: 2001,
+      errorCode: 2001, //student year restrice to use.
       message: ErrorMessage.STUDENT_YEAR_RESTRICT,
     });
   } else if (studentMajor != 122240) {
+    // 122240 = Student ID Format
     throw new BadRequestException({
-      errorCode: 2002,
+      errorCode: 2002, //student major not allowed.
       message: ErrorMessage.STUDENT_MAJOR_RESTRICT,
     });
   } else if (studentNo > 65) {
     throw new BadRequestException({
-      errorCode: 2003,
+      errorCode: 2003, // Student ID Invalid format
       message: ErrorMessage.STUDENT_ID_INVALID,
     });
   }

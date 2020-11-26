@@ -39,3 +39,5 @@ lerna-debug.log*
 .vercel
 /src/dist
 /src/student/dist
+/.ebextensions
+/.serverless

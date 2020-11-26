@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Account {
-   id String @id @default(uuid())
+  id                  String           @id @default(uuid())
   studentId           String?          @unique
   studentFirstName    String
   studentLastName     String
@@ -26,7 +26,7 @@ model Account {
 }
 
 model AccountInfo {
-  id String @id @default(cuid())
+  id                String   @id @default(cuid())
   accountId         String   @unique
   nickname          String?
   educateGroup      Int
@@ -46,7 +46,7 @@ model AccountInfo {
 }
 
 model StudentActivity {
-  id String @id @default(cuid())
+  id                  String   @id @default(cuid())
   accountId           String?  @unique
   studentId           String?
   activityAllCount    Int
@@ -67,17 +67,15 @@ model StudentGrade {
 }
 
 model activityCalendar {
-  id String @id @default(uuid())
-  activityName String?
-  activityDetail String?
+  id                String   @id @default(uuid())
+  activityName      String?
+  activityDetail    String?
   activityStartDate DateTime @default(now())
-  activityEndDate DateTime @default(now())
-  activityLocation String?
-  activityImage String?
+  activityEndDate   DateTime @default(now())
+  activityLocation  String?
+  activityImage     String?
 
 }
-
-
 
 enum userLevel {
   ADMIN

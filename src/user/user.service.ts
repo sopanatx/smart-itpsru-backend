@@ -5,6 +5,7 @@ import {
   AccountWhereUniqueInput,
 } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateAccountInfoDto } from './dto/update-account-info';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,7 @@ export class UserService {
 
   //ส่วนนี้จะแสดงข้อมูลที่ละเอียดกว่าค้นหาโดย รหัสนักศึกษา ดังนั้น ส่วนนี้จึงใช้เฉพาะ Authorized user เท่านั้น
   async findOne(where: AccountInfoWhereUniqueInput): Promise<any> {
-    const getAccountInfo = await this.prisma.account.findOne({
+    const getAccountInfo = await this.prisma.account.findUnique({
       where,
       select: {
         id: true,
@@ -49,7 +50,7 @@ export class UserService {
   }
   async searchStudent(where: AccountWhereUniqueInput): Promise<any> {
     console.log('searchStudent:', where);
-    const search = await this.prisma.account.findOne({
+    const search = await this.prisma.account.findUnique({
       where,
       select: {
         studentId: true,
@@ -70,5 +71,11 @@ export class UserService {
       },
     });
     return search;
+  }
+
+  async updateAccountInfo(UpdateAccountInfoDto: UpdateAccountInfoDto) {
+    const { educateGroup, admissionYear, phoneNumber } = UpdateAccountInfoDto;
+    console.log(+educateGroup);
+    return UpdateAccountInfoDto;
   }
 }

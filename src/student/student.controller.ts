@@ -29,12 +29,15 @@ export class StudentController {
     return this.studentService.getGrade(StudentId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/calendar')
-  async getActivityCalendar(): Promise<any> {
+  async getActivityCalendar(): Promise<Object> {
     return await this.studentService.getCalendar();
   }
+
+  @UseGuards(JwtAuthGuard)
   @Get('/device_logger')
-  async loggerDeviceinfo(): Promise<any> {
+  async loggerDeviceinfo(): Promise<string> {
     throw new MethodNotAllowedException();
   }
 }

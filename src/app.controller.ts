@@ -30,11 +30,10 @@ export class AppController {
     return {
       status: 'OK',
       appInfo: {
-        version: '1.0.9 (Dev)',
-        versionCode:9,
-        LastUpdated: `${Date.now()}`,
+        version: '1.7.0-BETA',
+        versionCode: 70,
+        currentServerTime: `${Date.now()}`,
         isInMaintenance: false,
-        isTestServer: true,
       },
     };
   }

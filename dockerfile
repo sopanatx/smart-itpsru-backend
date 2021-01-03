@@ -1,28 +1,26 @@
-FROM node:12.13-alpine As development
+FROM node:12 AS builder
 
-WORKDIR /usr/src/app
+# Create app directory
+WORKDIR /app
 
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
+COPY prisma ./prisma/
 
-RUN npm install --only=development
+# Install app dependencies
+RUN yarn
+# Generate prisma client, leave out if generating in `postinstall` script
+RUN npx prisma generate
 
 COPY . .
 
-RUN npm run build
+RUN yarn run build
 
-FROM node:12.13-alpine as production
+FROM node:12
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
 
-WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install --only=production
-
-COPY . .
-
-COPY --from=development /usr/src/app/dist ./dist
-
-CMD ["node", "dist/main"]
+EXPOSE 7000
+CMD [ "yarn", "run", "start:prod" ]

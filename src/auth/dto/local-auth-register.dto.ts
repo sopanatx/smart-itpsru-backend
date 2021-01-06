@@ -1,17 +1,27 @@
-import { IsString, MaxLength, MinLength, IsEmail } from 'class-validator';
+import {
+  IsString,
+  MaxLength,
+  MinLength,
+  IsEmail,
+  IsNumberString,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class LocalAuthRegisterDto {
   @IsString()
+  @IsNotEmpty()
   @MinLength(10)
   @MaxLength(10)
   studentId: string;
 
   @IsString()
+  @IsNotEmpty()
   @MaxLength(255)
   studentFirstName: string;
 
   @IsString()
   @MaxLength(255)
+  @IsNotEmpty()
   studentLastName: string;
 
   @IsEmail()
@@ -21,5 +31,25 @@ export class LocalAuthRegisterDto {
   @IsString()
   @MinLength(5)
   @MaxLength(255)
+  @IsNotEmpty()
   studentPassword: string;
+
+  @IsString()
+  @MaxLength(20)
+  nickname: string;
+
+  @IsNumberString()
+  @IsNotEmpty()
+  @MaxLength(1)
+  educateGroup: number;
+
+  @IsNumberString()
+  @IsNotEmpty()
+  @MaxLength(2)
+  admissionYear: number;
+
+  @IsNumberString()
+  @IsNotEmpty()
+  @MaxLength(10)
+  phoneNumber: string;
 }

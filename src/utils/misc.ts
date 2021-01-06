@@ -5,7 +5,7 @@ async function checkStudentMajor(studentId): Promise<void> {
   const studentMajor = studentId.slice(2, 8);
   const studentNo = studentId.slice(8, 10);
 
-  if (studentYear > 64 || studentYear < 60) {
+  if (studentYear > 65 || studentYear < 60) {
     throw new BadRequestException({
       errorCode: 2001, //student year restrice to use.
       message: ErrorMessage.STUDENT_YEAR_RESTRICT,

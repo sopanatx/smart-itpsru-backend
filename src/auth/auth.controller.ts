@@ -16,6 +16,7 @@ export class AuthController {
   async register(
     @Body() localAuthRegisterDto: LocalAuthRegisterDto,
   ): Promise<any> {
+    //console.log(LocalAuthRegisterDto);
     return this.authService.localAuthRegister(localAuthRegisterDto);
   }
 }

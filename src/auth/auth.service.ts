@@ -23,7 +23,7 @@ export class AuthService {
   async validatePassword(localAuthDto: LocalAuthDto): Promise<any> {
     const { studentId, studentPassword } = localAuthDto;
     const user = await this.prisma.account
-      .findOne({
+      .findUnique({
         where: { studentId },
       })
       .then();
@@ -66,9 +66,14 @@ export class AuthService {
       studentLastName,
       studentEmail,
       studentPassword,
+      nickname,
+      educateGroup,
+      admissionYear,
+      phoneNumber,
     } = localAuthRegister;
+    console.log({ studentId });
     await checkStudentMajor(studentId);
-    const user = await this.prisma.account.findOne({
+    const user = await this.prisma.account.findUnique({
       where: { studentId },
     });
     if (user)
@@ -88,9 +93,9 @@ export class AuthService {
         userLevel: 'STUDENT',
       },
     });
-    return {
-      status: 'Success',
-      message: 'Create account successfully',
-    };
+    const accountId = createdUser.id;
+    if (createdUser) {
+      return this.localAuthLogin({ studentId, studentPassword });
+    }
   }
 }

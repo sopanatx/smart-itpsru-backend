@@ -7,6 +7,15 @@ import {
   IsNumberString,
 } from 'class-validator';
 export class UpdateAccountInfoDto {
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  accountId: string;
+
+  @IsString()
+  @MaxLength(20)
+  nickname: string;
+
   @IsNumberString()
   @IsNotEmpty()
   @MaxLength(1)

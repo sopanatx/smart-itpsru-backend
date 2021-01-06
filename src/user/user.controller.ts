@@ -8,6 +8,7 @@ import {
   UnauthorizedException,
   ForbiddenException,
   Body,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { AccountInfo } from 'src/model/accountInfo.model';
 import { UserService } from './user.service';
@@ -36,10 +37,10 @@ export class UserController {
   }
 
   @Post('update_account_info')
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   async updateAccountInfo(
     @Body() UpdateAccountInfoDto: UpdateAccountInfoDto,
   ): Promise<UpdateAccountInfoDto> {
-    return this.userService.updateAccountInfo(UpdateAccountInfoDto);
+    throw new NotAcceptableException();
   }
 }

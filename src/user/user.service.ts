@@ -4,6 +4,7 @@ import {
   AccountWhereInput,
   AccountWhereUniqueInput,
 } from '@prisma/client';
+import { account } from 'src/model/account.model';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateAccountInfoDto } from './dto/update-account-info';
 
@@ -74,8 +75,29 @@ export class UserService {
   }
 
   async updateAccountInfo(UpdateAccountInfoDto: UpdateAccountInfoDto) {
-    const { educateGroup, admissionYear, phoneNumber } = UpdateAccountInfoDto;
-    console.log(+educateGroup);
+    const {
+      accountId,
+      nickname,
+      educateGroup,
+      admissionYear,
+      phoneNumber,
+    } = UpdateAccountInfoDto;
+
+    const updateUser = await this.prisma.accountInfo.create({
+      data: {
+        nickname: nickname,
+        educateGroup: +educateGroup,
+        admissionYear: +admissionYear,
+        Account: {
+          connect: {
+            id: accountId,
+          },
+        },
+      },
+    });
+
+    console.log(updateUser);
+
     return UpdateAccountInfoDto;
   }
 }

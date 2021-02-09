@@ -10,7 +10,6 @@ import {
 export class AdminController {
   @Get('/')
   async getHelloAdmin(): Promise<any> {
-    //throw new ForbiddenException();
-    return 'Hello Admin';
+    throw new ForbiddenException();
   }
 }

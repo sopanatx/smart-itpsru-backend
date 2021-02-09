@@ -22,13 +22,12 @@ export class StudentController {
     return this.studentService.getActivity(username);
   }
 
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('/grade/:id')
   async getStudentGrade(
     @GetUser() User,
     @Param('id') StudentId: string,
   ): Promise<any> {
-    //const { username } = User;
     return this.studentService.getGrade(StudentId);
   }
 
@@ -36,7 +35,6 @@ export class StudentController {
   @Get('/class')
   async getClass(@GetUser() user): Promise<any> {
     const { username } = user;
-    //  console.log(data);
     return await this.studentService.getClass(username);
   }
 
@@ -44,7 +42,6 @@ export class StudentController {
   @Get('/calendar')
   async getActivityCalendar(@Request() req): Promise<Object> {
     return await this.studentService.getCalendar();
-    //return req.user;
   }
 
   @UseGuards(JwtAuthGuard)

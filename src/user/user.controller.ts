@@ -23,7 +23,6 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('find/')
   async findUser(@GetUser() user): Promise<AccountInfo> {
-    console.log('[DBG] JWT_EXT:', user);
     const { userId } = user;
     return await this.userService.findOne(userId);
   }

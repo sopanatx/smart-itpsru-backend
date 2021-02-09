@@ -4,10 +4,13 @@ import {
   UseGuards,
   Param,
   MethodNotAllowedException,
+  Request,
+  Body,
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { GetUser } from 'src/decorator/getuser.decorator';
 import { JwtAuthGuard } from 'src/auth/strategy/jwt-auth.guard';
+import { getClassDto } from './dto/getClass.dto';
 
 @Controller('student')
 export class StudentController {
@@ -30,9 +33,18 @@ export class StudentController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('/class')
+  async getClass(@GetUser() user): Promise<any> {
+    const { username } = user;
+    //  console.log(data);
+    return await this.studentService.getClass(username);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('/calendar')
-  async getActivityCalendar(): Promise<Object> {
+  async getActivityCalendar(@Request() req): Promise<Object> {
     return await this.studentService.getCalendar();
+    //return req.user;
   }
 
   @UseGuards(JwtAuthGuard)

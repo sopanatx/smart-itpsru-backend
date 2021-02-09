@@ -7,8 +7,8 @@ import {
   HttpException,
 } from '@nestjs/common';
 import { AppService } from './app.service';
-import { PrismaClient, AccountInfoWhereUniqueInput } from '@prisma/client';
-// or const { PrismaClient } = require('@prisma/client')
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 import { PrismaService } from './prisma/prisma.service';
 import { stringify } from 'querystring';
 import { AccountInfo } from './model/accountInfo.model';

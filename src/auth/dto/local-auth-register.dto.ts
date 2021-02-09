@@ -5,6 +5,7 @@ import {
   IsEmail,
   IsNumberString,
   IsNotEmpty,
+  IsOptional,
 } from 'class-validator';
 
 export class LocalAuthRegisterDto {
@@ -52,4 +53,9 @@ export class LocalAuthRegisterDto {
   @IsNotEmpty()
   @MaxLength(10)
   phoneNumber: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(200)
+  profileImageUrl: string;
 }

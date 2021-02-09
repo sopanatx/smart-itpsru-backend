@@ -6,6 +6,7 @@ export class account {
   studentEmail: String;
   studentPassword: String;
   isActivate: Boolean;
+  loginAttempt: Number;
   userLevel: userLevel;
   lastLogin: Date;
   createdAt: Date;

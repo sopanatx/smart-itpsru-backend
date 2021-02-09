@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsNumberString,
+  IsOptional,
 } from 'class-validator';
 export class UpdateAccountInfoDto {
   @IsNotEmpty()
@@ -30,4 +31,9 @@ export class UpdateAccountInfoDto {
   @IsNotEmpty()
   @MaxLength(10)
   phoneNumber: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(200)
+  profileImageUrl: string;
 }

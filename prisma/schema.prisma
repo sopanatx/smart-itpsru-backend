@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -16,6 +17,8 @@ model Account {
   studentPassword     String?
   studentPasswordSalt String?
   isActivate          Boolean          @default(false)
+  isBanned            Boolean?         @default(false)
+  loginAttempt        Int?             @default(0)
   userLevel           userLevel        @default(STUDENT)
   lastLogin           DateTime?
   createdAt           DateTime         @default(now())
@@ -74,7 +77,6 @@ model activityCalendar {
   activityEndDate   DateTime @default(now())
   activityLocation  String?
   activityImage     String?
-
 }
 
 enum userLevel {

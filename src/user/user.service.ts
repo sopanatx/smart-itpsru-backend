@@ -1,9 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import {
-  AccountInfoWhereUniqueInput,
-  AccountWhereInput,
-  AccountWhereUniqueInput,
-} from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 import { account } from 'src/model/account.model';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateAccountInfoDto } from './dto/update-account-info';
@@ -13,33 +10,36 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   //ส่วนนี้จะแสดงข้อมูลที่ละเอียดกว่าค้นหาโดย รหัสนักศึกษา ดังนั้น ส่วนนี้จึงใช้เฉพาะ Authorized user เท่านั้น
-  async findOne(where: AccountInfoWhereUniqueInput): Promise<any> {
+  async findOne(aud: any): Promise<any> {
+    console.log({ aud });
     const getAccountInfo = await this.prisma.account.findUnique({
-      where,
+      where: {
+        id: aud,
+      },
       select: {
         id: true,
         studentId: true,
         studentEmail: true,
         studentFirstName: true,
         studentLastName: true,
-        userLevel: true,
+        //   userLevel: true,
         lastLogin: true,
-        isActivate: true,
+        // isActivate: true,
         AccountInfo: {
           select: {
             id: true,
             accountId: true,
             nickname: true,
-            graduateSchool: true,
+            //   graduateSchool: true,
             admissionYear: true,
             educateGroup: true,
             profileImageUrl: true,
-            canContactAddress: true,
-            currentAddress: true,
-            workAddress: true,
+            //   canContactAddress: true,
+            //   currentAddress: true,
+            //  workAddress: true,
             phoneNumber: true,
-            facebookAccount: true,
-            lineID: true,
+            //facebookAccount: true,
+            //  lineID: true,
             privacyPermission: true,
           },
         },
@@ -49,10 +49,12 @@ export class UserService {
 
     return { getAccountInfo };
   }
-  async searchStudent(where: AccountWhereUniqueInput): Promise<any> {
-    console.log('searchStudent:', where);
+  async searchStudent(studentId: any): Promise<any> {
+    //console.log('searchStudent:', where);
     const search = await this.prisma.account.findUnique({
-      where,
+      where: {
+        studentId: studentId.studentId,
+      },
       select: {
         studentId: true,
         studentEmail: true,
@@ -71,6 +73,10 @@ export class UserService {
         },
       },
     });
+    console.log(search);
+    if (!search) {
+      throw new NotFoundException('User do not exist.');
+    }
     return search;
   }
 
@@ -81,6 +87,7 @@ export class UserService {
       educateGroup,
       admissionYear,
       phoneNumber,
+      profileImageUrl,
     } = UpdateAccountInfoDto;
 
     const updateUser = await this.prisma.accountInfo.create({
@@ -88,6 +95,7 @@ export class UserService {
         nickname: nickname,
         educateGroup: +educateGroup,
         admissionYear: +admissionYear,
+        profileImageUrl: profileImageUrl,
         Account: {
           connect: {
             id: accountId,
@@ -96,8 +104,8 @@ export class UserService {
       },
     });
 
-    console.log(updateUser);
+    console.log({ updateUser });
 
-    return UpdateAccountInfoDto;
+    return updateUser;
   }
 }

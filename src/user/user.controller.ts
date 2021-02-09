@@ -21,19 +21,17 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get('find/:id')
-  async findUser(
-    @Param('id') id: string,
-    @GetUser() user,
-  ): Promise<AccountInfo> {
+  @Get('find/')
+  async findUser(@GetUser() user): Promise<AccountInfo> {
     console.log('[DBG] JWT_EXT:', user);
-    return await this.userService.findOne({ id });
+    const { userId } = user;
+    return await this.userService.findOne(userId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('student/:id')
   async searchStudent(@Param('id') studentId: string): Promise<AccountInfo> {
-    return await this.userService.searchStudent({ studentId });
+    return await this.userService.searchStudent(studentId);
   }
 
   @Post('update_account_info')

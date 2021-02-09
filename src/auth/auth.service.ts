@@ -12,6 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { LocalAuthRegisterDto } from './dto/local-auth-register.dto';
 import { JwtService } from '@nestjs/jwt';
 import { checkStudentMajor } from '../utils/misc';
+import axios from 'axios';
 @Injectable()
 export class AuthService {
   constructor(
@@ -94,7 +95,17 @@ export class AuthService {
       },
     });
     const accountId = createdUser.id;
-    if (createdUser) {
+    let profileImageUrl = `https://reg.psru.ac.th/WebApp1/std_name/${admissionYear}/${studentId}.jpg`;
+
+    const saveInfo = await this.userService.updateAccountInfo({
+      accountId,
+      nickname,
+      educateGroup,
+      admissionYear,
+      phoneNumber,
+      profileImageUrl,
+    });
+    if (createdUser && saveInfo) {
       return this.localAuthLogin({ studentId, studentPassword });
     }
   }

@@ -7,8 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { StudentService } from './student/student.service';
 import { StudentController } from './student/student.controller';
 import { JwtStrategy } from './auth/strategy/jwt.strategy';
+import { AdminModule } from './admin/admin.module';
 @Module({
-  imports: [UserModule, AuthModule],
+  imports: [UserModule, AuthModule, AdminModule],
   controllers: [AppController, StudentController],
   providers: [AppService, PrismaService, StudentService, JwtStrategy],
 })

@@ -30,8 +30,9 @@ export class AppController {
     return {
       status: 'OK',
       appInfo: {
-        version: '1.7.0-BETA',
-        versionCode: 70,
+        packageName: 'th.in.pleum.itpsruplus',
+        version: '1.9.5',
+        versionCode: 95,
         currentServerTime: `${Date.now()}`,
         isInMaintenance: false,
       },

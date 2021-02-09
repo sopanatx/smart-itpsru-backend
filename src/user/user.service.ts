@@ -27,8 +27,8 @@ export class UserService {
         // isActivate: true,
         AccountInfo: {
           select: {
-            id: true,
-            accountId: true,
+            //  id: true,
+            //    accountId: true,
             nickname: true,
             //   graduateSchool: true,
             admissionYear: true,

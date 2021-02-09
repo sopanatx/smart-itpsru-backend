@@ -25,14 +25,14 @@ export class AppController {
     throw new ForbiddenException();
   }
 
-  @Get('/appVersion')
+  @Get('/appversion')
   getAppVersion(): any {
     return {
       status: 'OK',
       appInfo: {
         packageName: 'th.in.pleum.itpsruplus',
-        version: '1.9.5',
-        versionCode: 95,
+        version: '1.9.6',
+        versionCode: 96,
         currentServerTime: `${Date.now()}`,
         isInMaintenance: false,
       },

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { studentActivity } from '../service/studentActivity.service';
 import { studentGrade } from 'src/service/studentGrade.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import getClass from '../service/getClass.service';
 import axios from 'axios';
 @Injectable()
 export class StudentService {
@@ -38,19 +39,9 @@ export class StudentService {
     const year = 2563;
     const classID = `TST1_${term}${year}_${admissionYear}132m1170${educateGroup}`;
 
-    const getClass = await axios.post(
-      `https://app.itpsru.in.th/api/class`,
-      { classID: classID },
-      {
-        headers: {
-          API_KEY: 'nNTegX6JnIiVNSmiHvzojxYL',
-        },
-      },
-    );
-
-    console.log(getClass.data);
+    const getClassData = await getClass(classID);
     console.log({ term, year, educateGroup, admissionYear, classID });
-    return getClass.data;
+    return getClassData;
   }
 
   async getCalendar(): Promise<any> {

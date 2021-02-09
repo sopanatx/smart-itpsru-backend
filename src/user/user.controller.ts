@@ -34,7 +34,6 @@ export class UserController {
   }
 
   @Post('update_account_info')
-  //@UseGuards(JwtAuthGuard)
   async updateAccountInfo(
     @Body() UpdateAccountInfoDto: UpdateAccountInfoDto,
   ): Promise<UpdateAccountInfoDto> {

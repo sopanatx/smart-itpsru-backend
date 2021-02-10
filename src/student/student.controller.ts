@@ -39,6 +39,13 @@ export class StudentController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('/semester_list')
+  async getSemesterList(@GetUser() user): Promise<any> {
+    const { username } = user;
+    return this.studentService.getSemesterList(username)
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('/calendar')
   async getActivityCalendar(@Request() req): Promise<Object> {
     return await this.studentService.getCalendar();

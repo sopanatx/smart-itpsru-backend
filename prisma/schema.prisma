@@ -21,6 +21,7 @@ model Account {
   loginAttempt        Int?             @default(0)
   userLevel           userLevel        @default(STUDENT)
   lastLogin           DateTime?
+  lineUserID          String?
   createdAt           DateTime         @default(now())
   updatedAt           DateTime         @default(now())
   AccountInfo         AccountInfo?

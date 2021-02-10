@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { studentActivity } from '../service/studentActivity.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import getClass from '../service/getClass.service';
-import { getGrade } from '../service/getGrade.service';
+import { getGrade, getSemester } from '../service/getGrade.service';
 import axios from 'axios';
 @Injectable()
 export class StudentService {
@@ -12,8 +12,21 @@ export class StudentService {
     return studentActivity(studentId);
   }
 
-  async getGrade(studentId: string): Promise<any> {
-    return getGrade(studentId, '1/2561');
+  async getGradeData(studentId: string, semester: string): Promise<any> {
+    if (!semester) {
+      const semesterList = await getSemester(studentId);
+      const lastSemesterLength =
+        semesterList.semesterInfo.availableSemesterData.length - 1;
+      console.log(
+        semesterList.semesterInfo.availableSemesterData[lastSemesterLength],
+      );
+      return getGrade(
+        studentId,
+        semesterList.semesterInfo.availableSemesterData[lastSemesterLength],
+      );
+    } else {
+      return getGrade(studentId, semester);
+    }
   }
 
   async getClass(StudentId: string): Promise<any> {
@@ -33,8 +46,6 @@ export class StudentService {
     });
     // console.log(getStudent);
     const { admissionYear, educateGroup } = getStudent.AccountInfo;
-    // const term = semester.substr(0, 1);
-    // const year = semester.substr(2, 6);
     const term = 1;
     const year = 2563;
     const classID = `TST1_${term}${year}_${admissionYear}132m1170${educateGroup}`;

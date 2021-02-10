@@ -23,15 +23,6 @@ export class StudentController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/grade/:id')
-  async getStudentGrade(
-    @GetUser() User,
-    @Param('id') StudentId: string,
-  ): Promise<any> {
-    return this.studentService.getGrade(StudentId);
-  }
-
-  @UseGuards(JwtAuthGuard)
   @Get('/class')
   async getClass(@GetUser() user): Promise<any> {
     const { username } = user;
@@ -40,9 +31,11 @@ export class StudentController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/grade')
-  async getGrade(@GetUser() user): Promise<any> {
+  async getGrade(@GetUser() user, @Body() body): Promise<any> {
     const { username } = user;
-    return await this.studentService.getGrade(username);
+    console.log('body', body);
+    const { semester } = body;
+    return await this.studentService.getGradeData(username, semester);
   }
 
   @UseGuards(JwtAuthGuard)

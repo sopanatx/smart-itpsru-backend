@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { studentActivity } from '../service/studentActivity.service';
-import { studentGrade } from 'src/service/studentGrade.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import getClass from '../service/getClass.service';
+import { getGrade } from '../service/getGrade.service';
 import axios from 'axios';
 @Injectable()
 export class StudentService {
@@ -13,7 +13,7 @@ export class StudentService {
   }
 
   async getGrade(studentId: string): Promise<any> {
-    return studentGrade(studentId);
+    return getGrade(studentId, '1/2561');
   }
 
   async getClass(StudentId: string): Promise<any> {

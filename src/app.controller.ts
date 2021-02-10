@@ -29,13 +29,14 @@ export class AppController {
   getAppVersion(): any {
     return {
       status: 'OK',
+      serverZone: 'ap-southeast-aws-1',
+      isTestServer: false,
+      currentServerTime: `${Date.now()}`,
+      isInMaintenance: process.env.ISMAINTENACE || false,
       appInfo: {
-        isTestServer: false,
         packageName: 'th.in.pleum.itpsruplus',
         version: '1.9.7',
         versionCode: 97,
-        currentServerTime: `${Date.now()}`,
-        isInMaintenance: false,
       },
     };
   }

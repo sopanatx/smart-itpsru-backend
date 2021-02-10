@@ -46,7 +46,7 @@ export class StudentService {
     });
     // console.log(getStudent);
     const { admissionYear, educateGroup } = getStudent.AccountInfo;
-    const term = 1;
+    const term = 2;
     const year = 2563;
     const classID = `TST1_${term}${year}_${admissionYear}132m1170${educateGroup}`;
 

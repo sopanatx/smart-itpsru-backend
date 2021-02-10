@@ -29,8 +29,8 @@ export class StudentService {
     }
   }
 
-  async getSemesterList(studentId: string): Promise<any>{
-    const response = await getSemester(studentId)
+  async getSemesterList(studentId: string): Promise<any> {
+    const response = await getSemester(studentId);
     return response.semesterInfo.availableSemesterData;
   }
 

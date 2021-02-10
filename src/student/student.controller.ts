@@ -6,6 +6,7 @@ import {
   MethodNotAllowedException,
   Request,
   Body,
+  Post,
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { GetUser } from 'src/decorator/getuser.decorator';
@@ -30,7 +31,7 @@ export class StudentController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/grade')
+  @Post('/grade')
   async getGrade(@GetUser() user, @Body() body): Promise<any> {
     const { username } = user;
     console.log('body', body);
@@ -42,7 +43,7 @@ export class StudentController {
   @Get('/semester_list')
   async getSemesterList(@GetUser() user): Promise<any> {
     const { username } = user;
-    return this.studentService.getSemesterList(username)
+    return this.studentService.getSemesterList(username);
   }
 
   @UseGuards(JwtAuthGuard)

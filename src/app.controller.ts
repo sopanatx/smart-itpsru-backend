@@ -43,7 +43,7 @@ export class AppController {
       isInMaintenance: process.env.IS_MAINTENANCE,
       appInfo: {
         packageName: 'th.in.pleum.itpsruplus',
-        version: process.env.APP_VERSION,
+        version: ApiConfig().APP_VERSION,
         versionCode: 97,
       },
     };

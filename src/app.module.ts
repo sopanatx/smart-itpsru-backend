@@ -8,8 +8,16 @@ import { StudentService } from './student/student.service';
 import { StudentController } from './student/student.controller';
 import { JwtStrategy } from './auth/strategy/jwt.strategy';
 import { AdminModule } from './admin/admin.module';
+import { NewsModule } from './news/news.module';
+import { ConfigModule } from '@nestjs/config';
 @Module({
-  imports: [UserModule, AuthModule, AdminModule],
+  imports: [
+    UserModule,
+    AuthModule,
+    AdminModule,
+    NewsModule,
+    ConfigModule.forRoot(),
+  ],
   controllers: [AppController, StudentController],
   providers: [AppService, PrismaService, StudentService, JwtStrategy],
 })

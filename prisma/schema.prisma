@@ -80,6 +80,17 @@ model activityCalendar {
   activityImage     String?
 }
 
+model news {
+  id          String   @id @default(uuid())
+  newsTitle   String?
+  newsDetails String?
+  newsImage   String?
+  newsUrl     String?
+  newsType    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
 enum userLevel {
   ADMIN
   STUDENT

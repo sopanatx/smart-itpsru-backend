@@ -44,7 +44,7 @@ export class AppController {
       appInfo: {
         packageName: 'th.in.pleum.itpsruplus',
         version: ApiConfig().APP_VERSION,
-        versionCode: 97,
+        versionCode: ApiConfig().APP_VERSIONCODE,
       },
     };
   }

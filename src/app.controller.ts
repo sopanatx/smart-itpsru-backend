@@ -24,7 +24,7 @@ export class AppController {
 
   @Get()
   getHello(): any {
-    const prisma = new PrismaClient();
+    //const prisma = new PrismaClient();
     throw new ForbiddenException();
   }
 

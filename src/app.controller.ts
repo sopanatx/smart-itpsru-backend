@@ -30,6 +30,7 @@ export class AppController {
 
   @Get('/appversion')
   async getAppVersion(@Headers() header): Promise<AppVersionModel> {
+    console.log('API_KEY', ApiConfig().API_KEY);
     if (header.api_key != ApiConfig().API_KEY)
       throw new UnauthorizedException('API Key is not valid or empty.');
 

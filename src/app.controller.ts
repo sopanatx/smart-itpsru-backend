@@ -6,6 +6,9 @@ import {
   UnauthorizedException,
   HttpException,
   Headers,
+  BadGatewayException,
+  BadRequestException,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PrismaClient } from '@prisma/client';
@@ -24,18 +27,21 @@ export class AppController {
 
   @Get()
   getHello(): any {
-    //const prisma = new PrismaClient();
-    throw new ForbiddenException();
+    throw new NotAcceptableException();
   }
 
   @Get('/appversion')
   async getAppVersion(@Headers() header): Promise<AppVersionModel> {
     console.log('API_KEY', ApiConfig().API_KEY);
     console.log(header);
-    if (header.api_key != ApiConfig().API_KEY)
+    if (
+      ApiConfig().IS_DEBUG == 'false' &&
+      header.api_key != ApiConfig().API_KEY
+    )
       throw new UnauthorizedException('API Key is not valid or empty.');
 
     return {
+      statusCode: 200,
       status: 'OK',
       serverZone: 'ap-southeast-aws-1',
       currentServerTime: `${Date.now()}`,
@@ -44,6 +50,7 @@ export class AppController {
         packageName: 'th.in.pleum.itpsruplus',
         version: ApiConfig().APP_VERSION,
         versionCode: ApiConfig().APP_VERSIONCODE,
+        AllowedMinimumVersion: ApiConfig().ALLOWED_MINIMUM_APP_VERSION,
       },
     };
   }

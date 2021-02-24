@@ -9,6 +9,7 @@ import {
   BadGatewayException,
   BadRequestException,
   NotAcceptableException,
+  NotFoundException,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PrismaClient } from '@prisma/client';
@@ -27,7 +28,7 @@ export class AppController {
 
   @Get()
   getHello(): any {
-    throw new NotAcceptableException();
+    throw new NotFoundException();
   }
 
   @Get('/appversion')

@@ -46,8 +46,8 @@ export class AppController {
         packageName: 'th.in.pleum.itpsruplus',
         version: ApiConfig().APP_VERSION,
         versionCode: +ApiConfig().APP_VERSIONCODE,
-        AllowedMinimumVersion: ApiConfig().ALLOWED_MINIMUM_APP_VERSION,
-        AllowedMinimunVersionCode: 204,
+        allowedMinimumVersion: ApiConfig().ALLOWED_MINIMUM_APP_VERSION,
+        allowedMinimunVersionCode: 204,
         isAllowedOlderVersion: true,
       },
     };

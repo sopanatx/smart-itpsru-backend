@@ -31,10 +31,10 @@ export class AppController {
     throw new NotFoundException();
   }
 
-  @Get('/appversion')
+  @Get('/application_info')
   async getAppVersion(@Headers() header): Promise<AppVersionModel> {
     if (ApiConfig().IS_DEBUG == 'false' && header.apikey != ApiConfig().API_KEY)
-      throw new UnauthorizedException('API Key is not valid or empty.');
+      throw new UnauthorizedException('Mismatched Configure on headers.');
 
     return {
       statusCode: 200,
@@ -45,8 +45,10 @@ export class AppController {
       appInfo: {
         packageName: 'th.in.pleum.itpsruplus',
         version: ApiConfig().APP_VERSION,
-        versionCode: ApiConfig().APP_VERSIONCODE,
+        versionCode: +ApiConfig().APP_VERSIONCODE,
         AllowedMinimumVersion: ApiConfig().ALLOWED_MINIMUM_APP_VERSION,
+        AllowedMinimunVersionCode: 204,
+        isAllowedOlderVersion: true,
       },
     };
   }

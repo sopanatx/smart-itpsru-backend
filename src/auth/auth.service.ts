@@ -59,12 +59,6 @@ export class AuthService {
       studentId,
     );
 
-    const updateRefreshToken = await this.prisma.account.update({
-      where: {
-        id,
-      },
-      data: {},
-    });
     const payload = {
       aud: id,
       username: studentId,

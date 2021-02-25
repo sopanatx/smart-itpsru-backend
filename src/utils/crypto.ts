@@ -1,6 +1,7 @@
+import { BadRequestException } from '@nestjs/common';
 import * as CryptoJS from 'crypto-js';
 
-export default async function EncryptCipherText(
+export async function EncryptCipherText(
   name: string,
   username: string,
 ): Promise<string> {
@@ -25,10 +26,15 @@ export default async function EncryptCipherText(
   return ciphertext;
 }
 
-export async function decryptCipherText(ciphertext: string): Promise<void> {
-  const decryptCipherText = CryptoJS.AES.decrypt(
-    ciphertext,
-    process.env.AES_ENCRYPTION_KEY,
-  );
-  console.log('DECRYPT --> : ', decryptCipherText.toString(CryptoJS.enc.Utf8));
+export async function DecryptCipherText(ciphertext: string): Promise<any> {
+  try {
+    const decryptCipherText = CryptoJS.AES.decrypt(
+      ciphertext,
+      process.env.AES_ENCRYPTION_KEY,
+    );
+    const data = decryptCipherText.toString(CryptoJS.enc.Utf8);
+    return JSON.parse(data);
+  } catch {
+    throw new BadRequestException('Failed to decrypt cipherText.');
+  }
 }

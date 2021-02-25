@@ -15,7 +15,8 @@ import { checkStudentMajor } from '../utils/misc';
 import axios from 'axios';
 import * as crypto from 'crypto';
 import * as CryptoJS from 'crypto-js';
-import EncryptCipherText from '../utils/crypto';
+import { DecryptCipherText, EncryptCipherText } from '../utils/crypto';
+import { RefreshTokenValidateDto } from './dto/refreshToken.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -131,5 +132,30 @@ export class AuthService {
     if (createdUser && saveInfo) {
       return this.localAuthLogin({ studentId, studentPassword });
     }
+  }
+  async validateRefreshToken(
+    refreshTokenValidateDto: RefreshTokenValidateDto,
+    user,
+  ): Promise<object> {
+    const { refreshToken } = refreshTokenValidateDto;
+    const { username } = user;
+    const getDecrypt = await DecryptCipherText(refreshToken);
+    console.log(getDecrypt['username']);
+    if (getDecrypt['username'] != username)
+      throw new UnauthorizedException(
+        `Account: ${username} not have permission to use this function.`,
+      );
+    const checkRefreshToken = await this.prisma.account.findUnique({
+      where: {
+        studentId: `${username}`,
+      },
+      select: {
+        refreshToken: true,
+      },
+    });
+    if (checkRefreshToken['refreshToken'] != refreshToken) {
+      throw new UnauthorizedException('refreshToken does not exist.');
+    }
+    return getDecrypt;
   }
 }

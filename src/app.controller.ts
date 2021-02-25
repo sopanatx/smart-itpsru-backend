@@ -19,6 +19,7 @@ import { stringify } from 'querystring';
 import { AccountInfo } from './model/accountInfo.model';
 import { AppVersionModel } from './model/appversion.model';
 import { ApiConfig } from './constant/Config';
+
 @Controller()
 export class AppController {
   constructor(
@@ -45,8 +46,8 @@ export class AppController {
       appInfo: {
         packageName: 'th.in.pleum.itpsruplus',
         version: ApiConfig().APP_VERSION,
-        versionCode: +ApiConfig().APP_VERSIONCODE,
         allowedMinimumVersion: ApiConfig().ALLOWED_MINIMUM_APP_VERSION,
+        versionCode: +ApiConfig().APP_VERSIONCODE,
         allowedMinimunVersionCode: 204,
         isAllowedOlderVersion: true,
       },

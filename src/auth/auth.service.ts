@@ -13,6 +13,9 @@ import { LocalAuthRegisterDto } from './dto/local-auth-register.dto';
 import { JwtService } from '@nestjs/jwt';
 import { checkStudentMajor } from '../utils/misc';
 import axios from 'axios';
+import * as crypto from 'crypto';
+import * as CryptoJS from 'crypto-js';
+import EncryptCipherText from '../utils/crypto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -44,17 +47,35 @@ export class AuthService {
 
   async localAuthLogin(localAuthDto: LocalAuthDto): Promise<tokenModel> {
     const getPayload = await this.validatePassword(localAuthDto);
+    const {
+      id,
+      studentId,
+      studentFirstName,
+      studentLastName,
+      userLevel,
+    } = getPayload;
+    const refreshToken = await EncryptCipherText(
+      studentFirstName + ' ' + studentLastName,
+      studentId,
+    );
+
+    const updateRefreshToken = await this.prisma.account.update({
+      where: {
+        id,
+      },
+      data: {},
+    });
     const payload = {
-      aud: getPayload.id,
-      username: getPayload.studentId,
-      studentName:
-        getPayload.studentFirstName + ' ' + getPayload.studentLastName,
-      userLevel: getPayload.userLevel,
+      aud: id,
+      username: studentId,
+      studentName: studentFirstName + ' ' + studentLastName,
+      userLevel: userLevel,
     };
 
     const accessToken = this.jwtService.sign(payload);
     return {
       accessToken: accessToken,
+      refreshToken: refreshToken,
     };
   }
 

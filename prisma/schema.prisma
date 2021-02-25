@@ -16,6 +16,7 @@ model Account {
   studentEmail        String           @unique
   studentPassword     String?
   studentPasswordSalt String?
+  refreshToken        String?
   isActivate          Boolean          @default(false)
   isBanned            Boolean?         @default(false)
   loginAttempt        Int?             @default(0)
